@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AuthService.Data.Entities
+namespace AuthService.Models.EntityModels
 {
-    public class User : BaseEntity
+    public class UserModel : BaseEntityModel
     {
         public string Id { get; set; }
         public string Login { get; set; }

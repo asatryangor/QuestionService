@@ -12,7 +12,7 @@ namespace AuthService.Data.Context
             public AuthContext CreateDbContext(string[] args)
             {
                 var builder = new DbContextOptionsBuilder<AuthContext>();
-                builder.UseMySql("server=localhost;port=3306;database=QuestionServiceAuthDB;uid=root;password=root;");
+                builder.UseMySql("server=localhost;port=3306;database=QuestionService_AuthDB;uid=root;password=root;");
                 return new AuthContext(builder.Options);
             }
         }

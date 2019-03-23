@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AuthService.Data.Context;
+using AuthService.Utils.Extensions;
+using AuthService.Utils.Settings;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -19,25 +22,24 @@ namespace AuthService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+
+            AuthSettings = configuration.GetSettings<AuthSettings>();
         }
 
         public IConfiguration Configuration { get; }
+        private AuthSettings AuthSettings { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/Auth/Login";
-                    options.AccessDeniedPath = "/Auth/Login";
-                });
-            var connection = Configuration.GetConnectionString("DefaultConnectionString");
             services.AddDbContext<AuthContext>(options =>
-            {
-                options.UseMySql(connection);
-            });
+                options.UseMySql(Configuration.GetConnectionString("DefaultConnectionString")));
+            services.AddAutoMapper();
+            services.AddCors();
+            services.RegisterAuth(AuthSettings);
+            services.RegisterServices();
             services.AddMvc();
+            services.Configure<AuthSettings>(Configuration.GetSection(nameof(AuthSettings)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
