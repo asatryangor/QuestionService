@@ -43,12 +43,10 @@ namespace AuthService.Controllers
             return Ok(CreateTicketResponse(user));
         }
 
-
-
         [NonAction]
-        private AuthTicket CreateTicketResponse(User admin)
+        private AuthTicket CreateTicketResponse(User user)
         {
-            var authTicket = new AuthTicket(admin, _authSettings);
+            var authTicket = new AuthTicket(user, _authSettings);
             return authTicket;
         }
     }
