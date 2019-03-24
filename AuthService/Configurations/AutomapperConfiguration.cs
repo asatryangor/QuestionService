@@ -10,6 +10,7 @@ namespace AuthService.Configurations
         {
             BaseEntityMappingConfiguration();
             UserModelMappingConfiguration();
+            RoleModelMappingConfiguration();
         }
 
         private void BaseEntityMappingConfiguration()
@@ -21,6 +22,15 @@ namespace AuthService.Configurations
         {
             CreateMap<User, UserModel>();
             CreateMap<UserModel, User>();
+
+            CreateMap<User, UserWithoutPasswordModel>();
+            CreateMap<UserWithoutPasswordModel, User>();
+        }
+
+        private void RoleModelMappingConfiguration()
+        {
+            CreateMap<Role, RoleModel>();
+            CreateMap<RoleModel, Role>();
         }
     }
 }

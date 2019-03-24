@@ -4,10 +4,12 @@ using AuthService.Core.Services.AuthService;
 using AuthService.Core.Services.RoleService;
 using AuthService.Data.Entities;
 using AuthService.Enums;
+using AuthService.Models.EntityModels;
 using AuthService.Models.Requests;
 using AuthService.Models.Responses;
 using AuthService.Utils.Settings;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -19,6 +21,7 @@ namespace AuthService.Controllers
 {
     [Produces("application/json")]
     [Route("api/Auth")]
+    [AllowAnonymous]
     public class AuthController : Controller
     {
         private readonly IMapper _mapper;
@@ -38,7 +41,8 @@ namespace AuthService.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public IActionResult Login(AuthRequest request)
+        [AllowAnonymous]
+        public IActionResult Login([FromBody]AuthRequest request)
         {
             if (!_authService.CheckPassword(request.Login, CryptoHelper.Encrypt(request.Password)))
             {
@@ -52,6 +56,7 @@ namespace AuthService.Controllers
 
         [HttpPost]
         [Route("Register")]
+        [AllowAnonymous]
         public IActionResult Register([FromBody]RegisterUserRequest request)
         {
             if (_authService.GetByUsername(request.Login) == null)
@@ -78,6 +83,33 @@ namespace AuthService.Controllers
             }
             return Ok(new BaseResponse("Username already exists", ResponseStatus.AlreadyExists));
         }
+
+        [HttpPut]
+        [Route("ChangePassword")]
+        [Authorize]
+        public IActionResult ChangePassword([FromBody]ChangePasswordRequest request)
+        {
+            var user = _authService.All.SingleOrDefault(x => x.Id == request.Id);
+            if (user != null)
+            {
+                if (user.Password == CryptoHelper.Encrypt(request.Password))
+                {
+                    if (request.NewPassword == request.ConfirmNewPassword)
+                    {
+                        user.Password = CryptoHelper.Encrypt(request.NewPassword);
+                        var updatedUser = _authService.Update(user);
+                        return Ok(new DataResponse<UserWithoutPasswordModel>(_mapper.Map<UserWithoutPasswordModel>(user)));
+                    }
+                    else
+                    {
+                        return Ok(new BaseResponse("Password mismatch", ResponseStatus.PasswordMismatch));
+                    }
+                }
+                return Ok(new BaseResponse("Incorrect password", ResponseStatus.IncorrectPassword));
+            }
+            return NotFound();
+        }
+
 
         [NonAction]
         private AuthTicket CreateTicketResponse(User user)

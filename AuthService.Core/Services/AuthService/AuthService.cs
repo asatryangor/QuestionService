@@ -1,6 +1,7 @@
 ﻿using AuthService.Core.Services.CRUDService;
 using AuthService.Data.Context;
 using AuthService.Data.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace AuthService.Core.Services.AuthService
         public User GetByUsername(string login)
         {
             return _context.Users
+                           .Include(x => x.Role)
                            .SingleOrDefault(x => x.Login == login);
         }
     }
