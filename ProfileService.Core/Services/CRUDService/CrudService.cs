@@ -1,14 +1,14 @@
-﻿using AuthService.Data.Context;
-using AuthService.Data.Entities;
+﻿using ProfileService.Data.Context;
+using ProfileService.Data.Entities;
 using System.Linq;
 
-namespace AuthService.Core.Services.CRUDService
+namespace ProfileService.Core.Services.CRUDService
 {
     public class CrudService<T> : ICrudService<T> where T : BaseEntity
     {
-        protected readonly AuthContext _context;
+        protected readonly ProfileContext _context;
 
-        public CrudService(AuthContext context)
+        public CrudService(ProfileContext context)
         {
             _context = context;
         }

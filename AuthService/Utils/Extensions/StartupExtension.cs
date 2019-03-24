@@ -45,7 +45,7 @@ namespace AuthService.Utils.Extensions
 
         public static void RegisterServices(this IServiceCollection services)
         {
-            services.AddScoped(typeof(ICrudService<>), typeof(CrudService<>));
+            //services.AddScoped(typeof(ICrudService<>), typeof(CrudService<>));
             services.AddScoped<IAuthService, Core.Services.AuthService.AuthService>();
             services.AddScoped<IRoleService, RoleService>();
         }

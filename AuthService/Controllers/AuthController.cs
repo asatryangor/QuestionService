@@ -110,6 +110,25 @@ namespace AuthService.Controllers
             return NotFound();
         }
 
+        [HttpDelete]
+        [Route("Delete")]
+        public IActionResult Delete([FromBody]string id)
+        {
+            var user = _authService.All.SingleOrDefault(x => x.Id == id);
+            if (user != null)
+            {
+                try
+                {
+                    _authService.Delete(user);
+                    return Ok(new BaseResponse());
+                }
+                catch
+                {
+                    return Ok(new BaseResponse("Can not delete profile", ResponseStatus.InternalException));
+                }
+            }
+            return NotFound();
+        }
 
         [NonAction]
         private AuthTicket CreateTicketResponse(User user)

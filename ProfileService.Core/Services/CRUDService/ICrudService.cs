@@ -1,7 +1,7 @@
-﻿using AuthService.Data.Entities;
+﻿using ProfileService.Data.Entities;
 using System.Linq;
 
-namespace AuthService.Core.Services.CRUDService
+namespace ProfileService.Core.Services.CRUDService
 {
     public interface ICrudService<T> where T : BaseEntity
     {
