@@ -1,5 +1,6 @@
 ﻿using AuthService.Core.Services.AuthService;
 using AuthService.Core.Services.CRUDService;
+using AuthService.Core.Services.RoleService;
 using AuthService.Utils.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
@@ -46,6 +47,7 @@ namespace AuthService.Utils.Extensions
         {
             services.AddScoped(typeof(ICrudService<>), typeof(CrudService<>));
             services.AddScoped<IAuthService, Core.Services.AuthService.AuthService>();
+            services.AddScoped<IRoleService, RoleService>();
         }
     }
 }

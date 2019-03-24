@@ -12,6 +12,10 @@ namespace AuthService.Data.Configurations
 
             builder.Property(x => x.Password);
             builder.Property(x => x.Login);
+
+            builder.HasOne(x => x.Role)
+                   .WithMany()
+                   .HasForeignKey(x => x.RoleId);
         }
     }
 }

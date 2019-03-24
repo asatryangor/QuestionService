@@ -1,3 +1,4 @@
+using AuthService.Constants;
 using AuthService.Data.Entities;
 using AuthService.Utils.Settings;
 using Microsoft.IdentityModel.Tokens;
@@ -17,9 +18,21 @@ namespace AuthService.Auth
             {
                 new Claim(ClaimTypes.Name, user.Login),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
-                //new Claim(ClaimTypes.Role, user.UserRole)
             };
             
+            if (user.Role.Name == RoleConfiguration.UserRole)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, RoleConfiguration.UserRole));
+            }
+            else if (user.Role.Name == RoleConfiguration.AdminRole)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, RoleConfiguration.UserRole));
+            }
+            else
+            {
+                claims.Add(new Claim(ClaimTypes.Role, RoleConfiguration.GuestRole));
+            }
+
             var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authSettings.SecretKey));
             var signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             

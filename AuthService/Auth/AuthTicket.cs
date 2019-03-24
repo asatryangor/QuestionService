@@ -1,3 +1,4 @@
+using AuthService.Constants;
 using AuthService.Data.Entities;
 using AuthService.Utils.Settings;
 
@@ -13,7 +14,7 @@ namespace AuthService.Auth
         {
             Token = AuthHelper.GenerateToken(user, authSettings);
             Username = user.Login;
-            //Roles = RoleName.UserRole;
+            Roles = RoleConfiguration.UserRole;
         }
     }
 }

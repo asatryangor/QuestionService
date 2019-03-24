@@ -49,6 +49,10 @@ namespace AuthService
             {
                 app.UseDeveloperExceptionPage();
             }
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                serviceScope.ServiceProvider.GetService<AuthContext>().EnsureSeedData();
+            }
             app.UseCors("AllowSpecificOrigin");
             app.UseAuthentication();
             app.UseMvc();

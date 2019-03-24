@@ -7,6 +7,7 @@ namespace AuthService.Data.Context
     public class AuthContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
         public AuthContext(DbContextOptions options) : base(options)
         {
         }
@@ -16,6 +17,7 @@ namespace AuthService.Data.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new RoleConfiguration());
         }
     }
 }
