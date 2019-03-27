@@ -1,17 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using ProfileService.Data.Context;
 using ProfileService.Utils.Extensions;
+using ProfileService.Utils.Settings;
 
 namespace ProfileService
 {
@@ -20,9 +27,11 @@ namespace ProfileService
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            AuthSettings = configuration.GetSettings<AuthSettings>();
         }
 
         public IConfiguration Configuration { get; }
+        private AuthSettings AuthSettings { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -31,7 +40,7 @@ namespace ProfileService
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddAutoMapper();
             services.AddCors();
-            //services.RegisterAuth(AuthSettings);
+            services.RegisterAuth(AuthSettings);
             services.RegisterServices();
             services.AddMvc();
             //services.Configure<AuthSettings>(Configuration.GetSection(nameof(AuthSettings)));
@@ -46,6 +55,13 @@ namespace ProfileService
             }
             app.UseCors("AllowSpecificOrigin");
             app.UseAuthentication();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "Uploads")),
+                RequestPath = new PathString("/Uploads")
+            });
+
             app.UseMvc();
         }
     }

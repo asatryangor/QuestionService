@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AuthService.Data\AuthService.Data.csproj" />
     <ProjectReference Include="..\ProfileService.Data\ProfileService.Data.csproj" />
   </ItemGroup>
 

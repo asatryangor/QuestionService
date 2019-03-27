@@ -11,6 +11,8 @@ namespace ProfileService.Data.Configurations
             builder.Property(x => x.FirstName);
             builder.Property(x => x.LastName);
             builder.Property(x => x.Email);
+
+            builder.HasIndex(x => x.UserId).IsUnique();
         }
     }
 }

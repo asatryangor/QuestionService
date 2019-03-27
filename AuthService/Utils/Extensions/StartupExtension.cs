@@ -17,27 +17,17 @@ namespace AuthService.Utils.Extensions
     {
         public static void RegisterAuth(this IServiceCollection services, AuthSettings authSettings)
         {
-            var x =  new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
-                ValidIssuer = authSettings.Issuer,
-                ValidAudience = authSettings.Issuer,
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.SecretKey))
-            };
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
-                        ValidateAudience = true,
+                        ValidateAudience = false,
                         ValidateLifetime = true,
-                        ValidateIssuerSigningKey = true,
+                        ValidateIssuerSigningKey = false,
                         ValidIssuer = authSettings.Issuer,
-                        ValidAudience = authSettings.Issuer,
+                        ValidAudience = authSettings.Audience,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.SecretKey))
                     };
                 });
