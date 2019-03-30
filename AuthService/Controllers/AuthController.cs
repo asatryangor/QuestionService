@@ -3,10 +3,8 @@ using AuthService.Constants;
 using AuthService.Core.Services.AuthService;
 using AuthService.Core.Services.RoleService;
 using AuthService.Data.Entities;
-using AuthService.Enums;
 using AuthService.Models.EntityModels;
 using AuthService.Models.Requests;
-using AuthService.Models.Responses;
 using AuthService.Utils.Settings;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -16,6 +14,8 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using Utils;
+using Utils.Enums;
+using Utils.Models.Responses;
 
 namespace AuthService.Controllers
 {

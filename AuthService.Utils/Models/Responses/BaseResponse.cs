@@ -1,7 +1,7 @@
-using ProfileService.Enums;
 using System.Collections.Generic;
+using Utils.Enums;
 
-namespace ProfileService.Models.Responses
+namespace Utils.Models.Responses
 {
     public class BaseResponse
     {

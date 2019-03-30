@@ -8,14 +8,14 @@ using Microsoft.Extensions.DependencyInjection;
 using ProfileService.Core.Services.ImageService;
 using ProfileService.Core.Services.ProfileService;
 using ProfileService.Data.Entities;
-using ProfileService.Enums;
 using ProfileService.Models.EntityModels;
-using ProfileService.Models.Responses;
 using System;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Utils.Enums;
+using Utils.Models.Responses;
 using E_Profile = ProfileService.Data.Entities.Profile;
 using M_File = System.IO.File;
 
@@ -81,7 +81,7 @@ namespace ProfileService.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(int id, [FromBody]ProfileModel profileModel)
+        public IActionResult Update(string id, [FromBody]ProfileModel profileModel)
         {
             try
             {
@@ -103,7 +103,7 @@ namespace ProfileService.Controllers
         }
 
         [HttpPost("UploadImage/{profileId}")]
-        public async Task<IActionResult> UploadImage(int profileId)
+        public async Task<IActionResult> UploadImage(string profileId)
         {
             try
             {
@@ -159,7 +159,7 @@ namespace ProfileService.Controllers
         }
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(string id)
         {
             var profileToRemove = _profileService.All
                                                  .Include(x => x.Image)
@@ -170,7 +170,7 @@ namespace ProfileService.Controllers
             }
             try
             {
-                if (profileToRemove.Image != null && System.IO.File.Exists(_appEnvironment.ContentRootPath + profileToRemove.Image.FilePath))
+                if (profileToRemove.Image != null && M_File.Exists(_appEnvironment.ContentRootPath + profileToRemove.Image.FilePath))
                 {
                     M_File.Delete(_appEnvironment.ContentRootPath + profileToRemove.Image.FilePath);
                 }

@@ -7,6 +7,6 @@ namespace ProfileService.Models.EntityModels
 {
     public class BaseEntityModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
     }
 }

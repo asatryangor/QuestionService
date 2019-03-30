@@ -13,9 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthService.Core", "AuthSer
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileService", "ProfileService\ProfileService.csproj", "{570897FA-415D-424C-B456-923159D54BBD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileService.Data", "ProfileService.Data\ProfileService.Data.csproj", "{072E639F-996B-4A3D-B709-AC26691769D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileService.Data", "ProfileService.Data\ProfileService.Data.csproj", "{072E639F-996B-4A3D-B709-AC26691769D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfileService.Core", "ProfileService.Core\ProfileService.Core.csproj", "{CAF7CAD6-8B44-414F-8F1D-013E154B09F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileService.Core", "ProfileService.Core\ProfileService.Core.csproj", "{CAF7CAD6-8B44-414F-8F1D-013E154B09F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionService", "QuestionService\QuestionService.csproj", "{9006E5A8-03CF-4A18-8255-DCBB180998CC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestionService.Data", "QuestionService.Data\QuestionService.Data.csproj", "{0330CF88-1BD1-4076-9E71-39949AB07BB6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +55,14 @@ Global
 		{CAF7CAD6-8B44-414F-8F1D-013E154B09F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CAF7CAD6-8B44-414F-8F1D-013E154B09F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CAF7CAD6-8B44-414F-8F1D-013E154B09F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9006E5A8-03CF-4A18-8255-DCBB180998CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9006E5A8-03CF-4A18-8255-DCBB180998CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9006E5A8-03CF-4A18-8255-DCBB180998CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9006E5A8-03CF-4A18-8255-DCBB180998CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0330CF88-1BD1-4076-9E71-39949AB07BB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0330CF88-1BD1-4076-9E71-39949AB07BB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0330CF88-1BD1-4076-9E71-39949AB07BB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0330CF88-1BD1-4076-9E71-39949AB07BB6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

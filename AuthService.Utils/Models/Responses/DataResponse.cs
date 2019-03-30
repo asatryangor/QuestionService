@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace AuthService.Models.Responses
+namespace Utils.Models.Responses
 {
     public class DataResponse<T> : BaseResponse
     {

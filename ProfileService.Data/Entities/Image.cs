@@ -8,7 +8,7 @@ namespace ProfileService.Data.Entities
     {
         public string FilePath { get; set; }
 
-        public int ProfileId { get; set; }
+        public string ProfileId { get; set; }
         public Profile Profile { get; set; }
     }
 }

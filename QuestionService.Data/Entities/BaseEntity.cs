@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace ProfileService.Data.Entities
+namespace QuestionService.Data.Entities
 {
     public class BaseEntity
     {
