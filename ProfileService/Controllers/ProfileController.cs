@@ -88,17 +88,16 @@ namespace ProfileService.Controllers
                 if (id == profileModel.Id)
                 {
                     var profile = _mapper.Map<E_Profile>(profileModel);
-                    if (profile == null)
+                    if (profile != null)
                     {
-                        return BadRequest();
+                        return Ok(new DataResponse<ProfileModel>(_mapper.Map<ProfileModel>(_profileService.Update(profile))));
                     }
-                    return Ok(new DataResponse<ProfileModel>(_mapper.Map<ProfileModel>(_profileService.Update(profile))));
                 }
                 return BadRequest();
             }
             catch
             {
-                return Ok(new BaseResponse("Exception", ResponseStatus.InternalException));
+                return Ok(new BaseResponse("Can not update profile", ResponseStatus.InternalException));
             }
         }
 
@@ -178,7 +177,7 @@ namespace ProfileService.Controllers
                 {
                     return Ok(new DataResponse<ProfileModel>(_mapper.Map<ProfileModel>(profileToRemove)));
                 }
-                return Ok(new BaseResponse("Can not delete"));
+                return BadRequest();
             }
             catch (DbUpdateException)
             {

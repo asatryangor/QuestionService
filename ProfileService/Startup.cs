@@ -16,6 +16,7 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using ProfileService.Data.Context;
 using ProfileService.Utils.Extensions;
 using ProfileService.Utils.Settings;
@@ -42,8 +43,11 @@ namespace ProfileService
             services.AddCors();
             services.RegisterAuth(AuthSettings);
             services.RegisterServices();
-            services.AddMvc();
-            //services.Configure<AuthSettings>(Configuration.GetSection(nameof(AuthSettings)));
+            //services.AddMvc();
+            services.AddMvc().AddJsonOptions(options => {
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });
+            services.Configure<AuthSettings>(Configuration.GetSection(nameof(AuthSettings)));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

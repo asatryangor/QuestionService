@@ -9,9 +9,10 @@ namespace QuestionService.Data.Configurations
         public void Configure(EntityTypeBuilder<Question> builder)
         {
             builder.Property(x => x.Text);
-            builder.Property(x => x.DateTime);
+            builder.Property(x => x.CreatedDateTime);
+            builder.Property(x => x.ModifiedDateTime);
             builder.Property(x => x.Score);
-            builder.Property(x => x.UserId);
+            builder.Property(x => x.ProfileId);
         }
     }
 }

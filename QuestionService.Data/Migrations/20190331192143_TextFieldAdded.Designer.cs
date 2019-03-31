@@ -11,9 +11,10 @@ using System;
 namespace QuestionService.Data.Migrations
 {
     [DbContext(typeof(QuestionContext))]
-    partial class QuestionContextModelSnapshot : ModelSnapshot
+    [Migration("20190331192143_TextFieldAdded")]
+    partial class TextFieldAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,15 +26,13 @@ namespace QuestionService.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedDateTime");
-
-                    b.Property<DateTime?>("ModifiedDateTime");
-
-                    b.Property<string>("ProfileId");
+                    b.Property<DateTime>("DateTime");
 
                     b.Property<int>("Score");
 
                     b.Property<string>("Text");
+
+                    b.Property<string>("UserId");
 
                     b.HasKey("Id");
 

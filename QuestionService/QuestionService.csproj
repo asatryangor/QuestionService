@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AuthService.Utils\Utils.csproj" />
     <ProjectReference Include="..\QuestionService.Core\QuestionService.Core.csproj" />
     <ProjectReference Include="..\QuestionService.Data\QuestionService.Data.csproj" />
   </ItemGroup>

@@ -11,6 +11,7 @@ namespace ProfileService.Configurations
         {
             BaseEntityMappingConfiguration();
             ProfileModelMappingConfiguration();
+            ImageModelMappingConfiguration();
         }
 
         private void BaseEntityMappingConfiguration()

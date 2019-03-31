@@ -11,9 +11,10 @@ using System;
 namespace QuestionService.Data.Migrations
 {
     [DbContext(typeof(QuestionContext))]
-    partial class QuestionContextModelSnapshot : ModelSnapshot
+    [Migration("20190331192339_NamesChanged")]
+    partial class NamesChanged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,9 +26,7 @@ namespace QuestionService.Data.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<DateTime>("CreatedDateTime");
-
-                    b.Property<DateTime?>("ModifiedDateTime");
+                    b.Property<DateTime>("DateTime");
 
                     b.Property<string>("ProfileId");
 
