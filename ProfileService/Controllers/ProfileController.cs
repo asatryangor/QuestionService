@@ -16,6 +16,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Utils.Enums;
 using Utils.Models.Responses;
+
 using E_Profile = ProfileService.Data.Entities.Profile;
 using M_File = System.IO.File;
 
@@ -46,8 +47,7 @@ namespace ProfileService.Controllers
             var profile = _profileService.All
                                          .Include(x => x.Image)
                                          .SingleOrDefault(x => x.UserId == User.Claims
-                                                                               .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)
-                                                                               .Value);
+                                                                               .FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value);
             if (profile != null)
             {
                 return Ok(new DataResponse<ProfileModel>(_mapper.Map<ProfileModel>(profile)));

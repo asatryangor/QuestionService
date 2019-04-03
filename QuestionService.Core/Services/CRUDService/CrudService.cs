@@ -13,14 +13,14 @@ namespace QuestionService.Core.Services.CRUDService
             _context = context;
         }
         
-        public T Create(T model)
+        public virtual T Create(T model)
         {
             var entity = _context.Add(model);
             _context.SaveChanges();
             return entity.Entity;
         }
 
-        public bool Delete(T model)
+        public virtual bool Delete(T model)
         {
             if (model == null)
             {

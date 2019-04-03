@@ -10,6 +10,8 @@ namespace QuestionService.Configurations
         {
             BaseEntityModelMapping();
             QuestionModelMapping();
+            TagModelMapping();
+            QuestionTagModelMapping();
         }
 
         public void BaseEntityModelMapping()
@@ -22,6 +24,16 @@ namespace QuestionService.Configurations
         {
             CreateMap<Question, QuestionModel>();
             CreateMap<QuestionModel, Question>();
+        }
+        public void TagModelMapping()
+        {
+            CreateMap<Tag, TagModel>();
+            CreateMap<TagModel, Tag>();
+        }
+        public void QuestionTagModelMapping()
+        {
+            CreateMap<QuestionTag, QuestionTagModel>();
+            CreateMap<QuestionTagModel, QuestionTag>();
         }
     }
 }

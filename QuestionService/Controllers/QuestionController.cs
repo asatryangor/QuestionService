@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using QuestionService.Core.Services.QuestionService;
 using QuestionService.Data.Entities;
@@ -8,6 +9,7 @@ using QuestionService.Models.EntityModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using Utils.Enums;
 using Utils.Models.Responses;
 
@@ -30,7 +32,9 @@ namespace QuestionService.Controllers
         [AllowAnonymous]
         public IActionResult Get()
         {
-            return Ok(new DataResponse<List<QuestionModel>>(_mapper.Map<List<QuestionModel>>(_questionService.All)));
+            return Ok(new DataResponse<List<QuestionModel>>(_mapper.Map<List<QuestionModel>>(_questionService.All
+                                                                                                             .Include(x => x.QuestionTags)
+                                                                                                                .ThenInclude(x => x.Tag))));
         }
 
         [HttpGet("{id}")]
@@ -38,6 +42,8 @@ namespace QuestionService.Controllers
         public IActionResult Get(string id)
         {
             var question = _questionService.All
+                                           .Include(x => x.QuestionTags)
+                                                .ThenInclude(x => x.Tag)
                                            .SingleOrDefault(x => x.Id == id);
             if (question == null)
             {
@@ -54,6 +60,7 @@ namespace QuestionService.Controllers
                 var question = _mapper.Map<Question>(model);
                 question.CreatedDateTime = DateTime.UtcNow;
                 question.Score = 0;
+                question.ProfileId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
                 if (question != null)
                 {
                     return Ok(new DataResponse<QuestionModel>(_mapper.Map<QuestionModel>(_questionService.Create(question))));
@@ -78,14 +85,19 @@ namespace QuestionService.Controllers
                     {
                         return NotFound();
                     }
+                    //selectedQuestion.QuestionTags = _mapper.Map<List<QuestionTag>>(model.QuestionTags);
+                    //selectedQuestion.QuestionTags.ForEach(x => x.QuestionId = model.Id);
+                    //_questionService.LoadTags(selectedQuestion);
                     selectedQuestion.ModifiedDateTime = DateTime.UtcNow;
                     selectedQuestion.Text = model.Text;
+                    selectedQuestion.Title = model.Title;
+                    selectedQuestion.ProfileId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
+                    
                     return Ok(_mapper.Map<QuestionModel>(_questionService.Update(selectedQuestion)));
-
                 }
                 return BadRequest();
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 return Ok(new BaseResponse("Can not update question", ResponseStatus.InternalException));
             }

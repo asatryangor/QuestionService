@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using QuestionService.Core.Services.QuestionService;
+using QuestionService.Core.Services.TagService;
 using QuestionService.Utils.Settings;
 using System.Text;
 
@@ -30,6 +31,8 @@ namespace QuestionService.Utils.Extensions
         {
             //services.AddScoped<IProfileService, Core.Services.ProfileService.ProfileService>();
             services.AddScoped<IQuestionService, Core.Services.QuestionService.QuestionService>();
+            services.AddScoped<ITagService, TagService>();
+
         }
     }
 }

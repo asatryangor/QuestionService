@@ -7,6 +7,8 @@ namespace QuestionService.Data.Context
     public class QuestionContext : DbContext
     {
         public DbSet<Question> Questions { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<QuestionTag> QuestionTags { get; set; }
         public QuestionContext(DbContextOptions options) : base(options)
         {
         }
@@ -16,6 +18,8 @@ namespace QuestionService.Data.Context
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfiguration(new QuestionConfiguration());
+            modelBuilder.ApplyConfiguration(new QuestionTagConfiguration());
+            modelBuilder.ApplyConfiguration(new TagConfiguration());
         }
     }
 }

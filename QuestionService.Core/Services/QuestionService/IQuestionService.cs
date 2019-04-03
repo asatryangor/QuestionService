@@ -5,5 +5,6 @@ namespace QuestionService.Core.Services.QuestionService
 {
     public interface IQuestionService : ICrudService<Question>
     {
+        void LoadTags(Question question);
     }
 }
