@@ -22,13 +22,19 @@ namespace VoteService.Data.Migrations
 
             modelBuilder.Entity("VoteService.Data.Entities.Vote", b =>
                 {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<string>("ProfileId");
 
                     b.Property<string>("QuestionId");
 
                     b.Property<bool>("Score");
 
-                    b.HasKey("ProfileId", "QuestionId", "Score");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId", "QuestionId", "Score")
+                        .IsUnique();
 
                     b.ToTable("Votes");
                 });

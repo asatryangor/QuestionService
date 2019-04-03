@@ -12,14 +12,21 @@ namespace VoteService.Data.Migrations
                 name: "Votes",
                 columns: table => new
                 {
-                    ProfileId = table.Column<string>(nullable: false),
-                    QuestionId = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    ProfileId = table.Column<string>(nullable: true),
+                    QuestionId = table.Column<string>(nullable: true),
                     Score = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Votes", x => new { x.ProfileId, x.QuestionId, x.Score });
+                    table.PrimaryKey("PK_Votes", x => x.Id);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Votes_ProfileId_QuestionId_Score",
+                table: "Votes",
+                columns: new[] { "ProfileId", "QuestionId", "Score" },
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

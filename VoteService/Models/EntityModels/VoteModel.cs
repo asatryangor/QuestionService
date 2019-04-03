@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace VoteService.Data.Entities
+namespace VoteService.Models.EntityModels
 {
-    public class Vote
+    public class VoteModel
     {
         public string Id { get; set; }
         public string ProfileId { get; set; }

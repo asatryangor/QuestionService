@@ -11,7 +11,7 @@ using VoteService.Data.Context;
 namespace VoteService.Data.Migrations
 {
     [DbContext(typeof(VoteContext))]
-    [Migration("20190403193335_InitialMigration")]
+    [Migration("20190403202924_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -23,13 +23,19 @@ namespace VoteService.Data.Migrations
 
             modelBuilder.Entity("VoteService.Data.Entities.Vote", b =>
                 {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<string>("ProfileId");
 
                     b.Property<string>("QuestionId");
 
                     b.Property<bool>("Score");
 
-                    b.HasKey("ProfileId", "QuestionId", "Score");
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId", "QuestionId", "Score")
+                        .IsUnique();
 
                     b.ToTable("Votes");
                 });

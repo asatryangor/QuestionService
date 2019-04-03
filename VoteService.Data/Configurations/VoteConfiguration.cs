@@ -11,12 +11,14 @@ namespace VoteService.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Vote> builder)
         {
-            builder.HasKey(x => new
+            builder.HasKey(x => x.Id);
+
+            builder.HasIndex(x => new
             {
                 x.ProfileId,
                 x.QuestionId,
                 x.Score
-            });
+            }).IsUnique();
         }
     }
 }

@@ -93,7 +93,7 @@ namespace QuestionService.Controllers
                     selectedQuestion.Title = model.Title;
                     selectedQuestion.ProfileId = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
                     
-                    return Ok(_mapper.Map<QuestionModel>(_questionService.Update(selectedQuestion)));
+                    return Ok(new DataResponse<QuestionModel>(_mapper.Map<QuestionModel>(_questionService.Update(selectedQuestion))));
                 }
                 return BadRequest();
             }

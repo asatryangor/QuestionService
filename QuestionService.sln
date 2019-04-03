@@ -27,6 +27,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VoteService", "VoteService\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteService.Data", "VoteService.Data\VoteService.Data.csproj", "{F0EA247D-2E5C-4044-B3C0-15AF6273BBB1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VoteService.Core", "VoteService.Core\VoteService.Core.csproj", "{5E8B5447-0BC5-460E-B5D3-722F99B1A304}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{F0EA247D-2E5C-4044-B3C0-15AF6273BBB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0EA247D-2E5C-4044-B3C0-15AF6273BBB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0EA247D-2E5C-4044-B3C0-15AF6273BBB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E8B5447-0BC5-460E-B5D3-722F99B1A304}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E8B5447-0BC5-460E-B5D3-722F99B1A304}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E8B5447-0BC5-460E-B5D3-722F99B1A304}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E8B5447-0BC5-460E-B5D3-722F99B1A304}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
