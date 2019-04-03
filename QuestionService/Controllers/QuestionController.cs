@@ -97,7 +97,7 @@ namespace QuestionService.Controllers
                 }
                 return BadRequest();
             }
-            catch(Exception ex)
+            catch
             {
                 return Ok(new BaseResponse("Can not update question", ResponseStatus.InternalException));
             }

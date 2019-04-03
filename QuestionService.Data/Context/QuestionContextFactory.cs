@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ProfileService.Data.Context
 {
-    public class ProfileContextFactory : IDesignTimeDbContextFactory<QuestionContext>
+    public class QuestionContextFactory : IDesignTimeDbContextFactory<QuestionContext>
     {
         public QuestionContext CreateDbContext(string[] args)
         {
