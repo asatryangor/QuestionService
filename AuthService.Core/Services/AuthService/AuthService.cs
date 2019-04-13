@@ -31,5 +31,12 @@ namespace AuthService.Core.Services.AuthService
                            .Include(x => x.Role)
                            .SingleOrDefault(x => x.Login == login);
         }
+
+        public User GetByFacebookId(string facebookId)
+        {
+            return _context.Users
+                           .Include(x => x.Role)
+                           .SingleOrDefault(x => x.FacebookId == facebookId);
+        }
     }
 }

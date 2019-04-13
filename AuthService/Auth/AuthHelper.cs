@@ -1,5 +1,6 @@
 using AuthService.Constants;
 using AuthService.Data.Entities;
+using AuthService.Enums;
 using AuthService.Utils.Settings;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -12,14 +13,22 @@ namespace AuthService.Auth
 {
     public class AuthHelper
     {
-        public static string GenerateToken(User user, AuthSettings authSettings)
+        public static string GenerateToken(User user, AuthSettings authSettings, AuthType authType)
         {
+            
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.Login),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
-            
+            if (authType == AuthType.Basic)
+            {
+                claims.Add(new Claim(ClaimTypes.Name, user.Login));
+            }
+            else if(authType == AuthType.Facebook)
+            {
+                claims.Add(new Claim(ClaimTypes.Name, user.FacebookId));
+            }
+
             if (user.Role.Name == RoleConfiguration.UserRole)
             {
                 claims.Add(new Claim(ClaimTypes.Role, RoleConfiguration.UserRole));

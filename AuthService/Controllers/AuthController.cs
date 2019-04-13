@@ -3,16 +3,20 @@ using AuthService.Constants;
 using AuthService.Core.Services.AuthService;
 using AuthService.Core.Services.RoleService;
 using AuthService.Data.Entities;
+using AuthService.Enums;
 using AuthService.Models.EntityModels;
 using AuthService.Models.Requests;
 using AuthService.Utils.Settings;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Utils;
 using Utils.Enums;
 using Utils.Models.Responses;
@@ -39,6 +43,41 @@ namespace AuthService.Controllers
             _authSettings = authSettingsAccessor.Value;
         }
 
+        [Route("SignIn")]
+        public IActionResult SignIn()
+        {
+            return Challenge(new AuthenticationProperties() { RedirectUri = Url.Action("Facebook", "Auth") }, "Facebook");
+        }
+
+        [AllowAnonymous]
+        public async Task<IActionResult> Facebook()
+        {
+            try
+            {
+                var result = await HttpContext.AuthenticateAsync("Facebook");
+                if (result.Succeeded)
+                {
+                    var FacebookId = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+                    var user = _authService.GetByFacebookId(FacebookId);
+                    if (user == null)
+                    {
+                        Role role = _roleService.All.SingleOrDefault(x => x.Name == RoleConfiguration.UserRole);
+                        user = _authService.Create(new User()
+                        {
+                            FacebookId = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier),
+                            RoleId = role.Id
+                        });
+                    }
+                    return Ok(CreateTicketResponse(user, AuthType.Facebook));
+                }
+            }
+            catch
+            {
+                return Ok(new BaseResponse("Can not sign in", ResponseStatus.InternalException));
+            }
+            return BadRequest();
+        }
+
         [HttpPost]
         [Route("Login")]
         [AllowAnonymous]
@@ -51,7 +90,7 @@ namespace AuthService.Controllers
 
             var user = _authService.GetByUsername(request.Login);
 
-            return Ok(CreateTicketResponse(user));
+            return Ok(CreateTicketResponse(user, AuthType.Basic));
         }
 
         [HttpPost]
@@ -74,7 +113,7 @@ namespace AuthService.Controllers
                         Password = CryptoHelper.Encrypt(request.Password),
                         RoleId = role.Id
                     });
-                    return Ok(CreateTicketResponse(user));
+                    return Ok(CreateTicketResponse(user, AuthType.Basic));
                 }
                 else
                 {
@@ -131,9 +170,9 @@ namespace AuthService.Controllers
         }
 
         [NonAction]
-        private AuthTicket CreateTicketResponse(User user)
+        private AuthTicket CreateTicketResponse(User user, AuthType authType)
         {
-            var authTicket = new AuthTicket(user, _authSettings);
+            var authTicket = new AuthTicket(user, _authSettings, authType);
             return authTicket;
         }
     }

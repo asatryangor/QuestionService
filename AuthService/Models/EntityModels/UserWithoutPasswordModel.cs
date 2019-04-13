@@ -9,6 +9,7 @@ namespace AuthService.Models.EntityModels
     {
         public string Id { get; set; }
         public string Login { get; set; }
+        public string FacebookId { get; set; }
         public int RoleId { get; set; }
         public RoleModel Role { get; set; }
     }

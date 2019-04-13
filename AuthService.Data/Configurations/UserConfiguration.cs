@@ -12,6 +12,7 @@ namespace AuthService.Data.Configurations
 
             builder.Property(x => x.Password);
             builder.Property(x => x.Login);
+            builder.Property(x => x.FacebookId);
 
             builder.HasOne(x => x.Role)
                    .WithMany()

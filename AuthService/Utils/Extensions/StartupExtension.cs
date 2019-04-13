@@ -1,15 +1,11 @@
 ﻿using AuthService.Core.Services.AuthService;
-using AuthService.Core.Services.CRUDService;
 using AuthService.Core.Services.RoleService;
 using AuthService.Utils.Settings;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AuthService.Utils.Extensions
 {
@@ -20,6 +16,7 @@ namespace AuthService.Utils.Extensions
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
+                    options.SaveToken = true;
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
@@ -30,6 +27,13 @@ namespace AuthService.Utils.Extensions
                         ValidAudience = authSettings.Audience,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authSettings.SecretKey))
                     };
+                })
+                .AddCookie()
+                .AddFacebook(facebookOptions =>
+                {
+                    facebookOptions.AppId = authSettings.Facebook.AppId;
+                    facebookOptions.AppSecret = authSettings.Facebook.AppSecret;
+                    facebookOptions.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 });
         }
 

@@ -9,5 +9,6 @@ namespace AuthService.Core.Services.AuthService
         bool Exists(string username);
         bool CheckPassword(string username, string password);
         User GetByUsername(string username);
+        User GetByFacebookId(string facebookId);
     }
 }
