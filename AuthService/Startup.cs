@@ -35,19 +35,7 @@ namespace AuthService
             services.AddDbContext<AuthContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddAutoMapper();
-
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .WithOrigins(new[]
-                        {
-                            "http://localhost:3000"
-                        }
-                    )
-                );
-            });
+            services.AddCors();
             services.RegisterAuth(AuthSettings);
             services.RegisterServices();
             services.AddMvc();
