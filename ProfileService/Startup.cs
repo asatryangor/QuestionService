@@ -40,7 +40,7 @@ namespace ProfileService
             services.AddDbContext<ProfileContext>(options =>
                 options.UseMySql(Configuration.GetConnectionString("DefaultConnectionString")));
             services.AddAutoMapper();
-            services.AddCors();
+            services.RegisterCors();
             services.RegisterAuth(AuthSettings);
             services.RegisterServices();
             //services.AddMvc();

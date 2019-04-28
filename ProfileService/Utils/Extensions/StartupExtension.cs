@@ -14,6 +14,21 @@ namespace ProfileService.Utils.Extensions
 {
     public static class StartupExtension
     {
+        public static void RegisterCors(this IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .WithOrigins(new[]
+                        {
+                            "http://localhost:3000"
+                        }
+                    )
+                );
+            });
+        }
         public static void RegisterAuth(this IServiceCollection services, AuthSettings authSettings)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
