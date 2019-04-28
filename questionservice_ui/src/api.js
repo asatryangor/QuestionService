@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { ApiBaseURL } from "./constants/ApiBaseURL"
 
-export const http = axios.create({
-    baseURL: 'http://localhost:52240/api/',
+export const httpAuth = axios.create({
+    baseURL: ApiBaseURL.AuthUrl,
     timeout: 1000,
     headers: {'X-Custom-Header': 'foobar'}
 });

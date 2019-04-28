@@ -1,21 +1,22 @@
-import { http } from "../api";
+import { httpAuth } from "../api";
+import { AuthActions } from "../constants/AuthActions";
 
-export const login = (login, pass) => (dispatch, getState) => {
+export const login = (login, password) => (dispatch, getState) => {
     dispatch({
-        type: "LOGIN_REQUEST"
+        type: AuthActions.LoginRequest
     });
 
-    return http.post('auth/login', {
-        Login: login, Password: pass
+    return httpAuth.post('auth/login', {
+        Login: login, Password: password
     }).then(data => {
-        localStorage.setItem('token', data.token);
+        localStorage.setItem('token', data.data.token);
         return dispatch({
-            type: "LOGIN_SUCCESS",
-            role: data.role
+            type: AuthActions.LoginSuccess,
+            role: data.data.role
         });
     }).catch(error => {
         return dispatch({
-            type: "LOGIN_ERROR",
+            type: AuthActions.LoginError,
             error
         });
     });

@@ -1,21 +1,22 @@
-//константы
-//начальное состояние в зависимости от наличия токена в локал сторадже
-const authReducer = (state = {loading: false, isAuth: false}, action) => {
+import { AuthActions } from "../constants/AuthActions"
+
+const authReducer = (state = {loading: false, isAuth: localStorage.getItem('token') != null}, action) => {
+    console.log(state);
     switch (action.type) {
-        case "LOGIN_REQUEST":
+        case AuthActions.LoginRequest:
             return {
                 ...state,
                 loading: true,
                 isAuth: false
             };
-        case "LOGIN_SUCCESS":
+        case AuthActions.LoginSuccess:
             return {
                 ...state,
                 loading: false,
                 role: action.role,
                 isAuth: true
             };
-        case "LOGIN_ERROR":
+        case AuthActions.LoginError:
             return {
                 ...state,
                 loading: false,
@@ -24,9 +25,7 @@ const authReducer = (state = {loading: false, isAuth: false}, action) => {
             };
         default:
             return state;
-
     }
-
 };
 
 export default authReducer;
