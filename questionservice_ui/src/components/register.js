@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import '../css/auth.css';
-import { FacebookLoginButton } from "react-social-login-buttons";
 
-import { login } from '../actions/auth';
+import { register } from '../actions/register';
 
-class Login extends Component {
+import '../css/auth.css'
+
+class Register extends Component {
     state = {
         login: '',
-        pass: ''
+        pass: '',
+        confirmPass: ''
     };
     handleLoginChange = (e) => {
         this.setState({ login: e.target.value })
@@ -16,8 +17,11 @@ class Login extends Component {
     handlePassChange = (e) => {
         this.setState({ pass: e.target.value })
     };
+    handleConfirmPassChange = (e) => {
+        this.setState({ confirmPass: e.target.value })
+    };
     handleSubmit = () => {
-        this.props.login(this.state.login, this.state.pass).then(() => {
+        this.props.register(this.state.login, this.state.pass, this.state.confirmPass).then(() => {
             this.props.history.push('/');
         });
     };
@@ -30,13 +34,15 @@ class Login extends Component {
                            value={this.state.login}
                            onChange={this.handleLoginChange}
                            placeholder="Логин"/>
-
                     <input type="password"
                            value={this.state.pass}
                            onChange={this.handlePassChange}
                            placeholder="Пароль"/>
-                    <button onClick={this.handleSubmit}>Войти</button>
-                    <FacebookLoginButton className="btn btn-facebook">Войти через Facebook</FacebookLoginButton>
+                    <input type="text"
+                           value={this.state.confirmPass}
+                           onChange={this.handleConfirmPassChange}
+                           placeholder="Повторите пароль"/>
+                    <button onClick={this.handleSubmit}>Зарегистрироваться</button>
                 </div>
             </div>
         );
@@ -47,5 +53,5 @@ export default connect(state => ({
     loading: state.authReducer.loading,
     error: state.authReducer.error
 }), {
-    login
-})(Login);
+    register
+})(Register);

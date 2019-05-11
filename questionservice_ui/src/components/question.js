@@ -14,8 +14,10 @@ class Question extends Component {
 
     render() {
         return (
-            <div className="container">
-                <span>{this.props.questionData && this.props.questionData.text}</span>
+            <div className="row">
+                <div className="col-md-12">
+                    <span>{this.props.questionData && this.props.questionData.text}</span>
+                </div>
             </div>
         );
     }

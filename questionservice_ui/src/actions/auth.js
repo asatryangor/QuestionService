@@ -1,4 +1,4 @@
-import { httpAuth } from "../api";
+import { httpAuth, setHTTPHeader } from "../api";
 import { AuthActions } from "../constants/AuthActions";
 
 export const login = (login, password) => (dispatch, getState) => {
@@ -10,6 +10,7 @@ export const login = (login, password) => (dispatch, getState) => {
         Login: login, Password: password
     }).then(data => {
         localStorage.setItem('token', data.data.token);
+        setHTTPHeader('Authorization', localStorage.getItem('token'));
         return dispatch({
             type: AuthActions.LoginSuccess,
             role: data.data.role
