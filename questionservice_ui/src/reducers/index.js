@@ -1,7 +1,11 @@
-import {combineReducers} from 'redux';
+import { combineReducers } from 'redux';
 import authReducer from "./auth";
+import questionsReducer from './questions';
+import questionReducer from './question'
 
 export default combineReducers({
-    authReducer
+    authReducer: authReducer,
+    questionsReducer: questionsReducer,
+    questionReducer: questionReducer
 });
 

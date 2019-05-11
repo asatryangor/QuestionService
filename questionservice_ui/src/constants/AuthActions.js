@@ -1,5 +1,5 @@
-export class AuthActions {
-    static LoginSuccess = "LOGIN_SUCCESS";
-    static LoginError = "LOGIN_ERROR";
-    static LoginRequest = "LOGIN_REQUEST";
-}
+export const AuthActions = {
+    LoginSuccess: "LOGIN_SUCCESS",
+    LoginError: "LOGIN_ERROR",
+    LoginRequest: "LOGIN_REQUEST"
+};

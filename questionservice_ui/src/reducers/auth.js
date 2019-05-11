@@ -1,7 +1,6 @@
 import { AuthActions } from "../constants/AuthActions"
 
 const authReducer = (state = {loading: false, isAuth: localStorage.getItem('token') != null}, action) => {
-    console.log(state);
     switch (action.type) {
         case AuthActions.LoginRequest:
             return {
